@@ -30,13 +30,10 @@ Discord Channel Counter is a Discord bot designed to analyze and validate specif
    ```bash
    pip install -r requirements.txt
    ```
-3. Create a `.env` file in the project directory and add the following environment variables:
-   ```dotenv
-   DISCORD_TOKEN=your_discord_bot_token
-   COMMAND_CHANNEL=your_command_channel_name
-   SKIP_LINES_FILE=skip_lines.txt
-   ```
-   Replace `your_discord_bot_token` with your bot's token and `your_command_channel_name` with the name of the channel where commands can be used.
+3. Set the following environment variables in your system or pass them as arguments when running the bot:
+   - `DISCORD_TOKEN`: Your Discord bot token.
+   - `COMMAND_CHANNEL`: The name of the channel where commands can be used.
+   - `SKIP_LINES_FILE`: The path to the file containing lines to skip (default: `skip_lines.txt`).
 
 4. Create a `skip_lines.txt` file in the project directory and add lines to skip during counting and validation. For example:
    ```plaintext
@@ -77,7 +74,7 @@ Validate the numbering of messages in the specified channel and report any issue
 You can customize the lines to skip during counting and validation by editing the `skip_lines.txt` file. Each line in the file represents a pattern to skip.
 
 ### Command Channel
-The bot restricts the use of commands to a specific channel. You can configure this by setting the `COMMAND_CHANNEL` environment variable in the `.env` file.
+The bot restricts the use of commands to a specific channel. You can configure this by setting the `COMMAND_CHANNEL` environment variable.
 
 ## Docker Support
 
