@@ -13,8 +13,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application code into the container
 COPY . .
 
-# Set the environment variable for the bot token (can be overridden at runtime)
+# Set environment variables (can be overridden at runtime)
 ENV DISCORD_TOKEN=""
+ENV COMMAND_CHANNEL=""
+ENV SKIP_LINES_FILE=""
 
 # Run the bot
 CMD ["python", "bot.py"]
