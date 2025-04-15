@@ -43,9 +43,6 @@ Discord Channel Counter is a Discord bot designed to analyze and validate specif
 
 5. Run the bot:
    ```bash
-   DISCORD_TOKEN=your_discord_bot_token
-   COMMAND_CHANNEL=your_command_channel_name
-   SKIP_LINES_FILE=skip_lines.txt
    python bot.py
    ```
 
