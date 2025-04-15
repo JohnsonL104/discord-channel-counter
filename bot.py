@@ -107,6 +107,40 @@ async def count(ctx, channel_name: str):
         file=file
     )
 
+@bot.command(name="leaderboard")
+async def leaderboard(ctx, channel_name: str):
+    if ctx.channel.name != command_channel:
+        await ctx.send(f"This command can only be used in the #{command_channel} channel.")
+        return
+
+    target_channel = discord.utils.get(ctx.guild.channels, name=channel_name)
+    if not target_channel:
+        await ctx.send(f"Channel #{channel_name} not found.")
+        return
+
+    user_counts = {}
+    async for message in target_channel.history(limit=None, oldest_first=False):
+        count = 0
+        for line in message.content.splitlines():
+            if not any(skip_line.lower() in line.lower() for skip_line in SKIP_LINES):
+                count += 1
+
+        if count > 0:
+            user_counts[message.author] = user_counts.get(message.author, 0) + count
+
+    if not user_counts:
+        await ctx.send(f"No countable messages found in #{channel_name}.")
+        return
+
+    # Sort users by message count
+    sorted_counts = sorted(user_counts.items(), key=lambda item: item[1], reverse=True)
+
+    leaderboard_lines = ["**All-Time Leaderboard**:"]
+    for i, (user, count) in enumerate(sorted_counts[:20], start=1): # Top 20
+        leaderboard_lines.append(f"{i}. **{user.display_name}** - {count} entr{if count > 1 'ies' else 'y'}")
+
+    await ctx.send("\n".join(leaderboard_lines))
+
 @bot.command(name="validate")
 async def validate(ctx, channel_name: str):
     """Validate the numbering of messages in the specified channel and report any issues."""
